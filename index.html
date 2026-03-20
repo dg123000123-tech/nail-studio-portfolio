@@ -1,51 +1,316 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nail Studio Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Студия Маникюра | Нежный Блик</title>
+    <style>
+        :root {
+            --bg-color: #fdf6f5; /* Очень светлый бежево-розовый */
+            --primary-color: #e6c8c8; /* Пыльная роза */
+            --primary-hover: #d4aeae;
+            --text-color: #4a4040; /* Мягкий темно-коричневый */
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            padding-bottom: 80px; /* Отступ для мобильной кнопки */
+        }
+
+        /* Шапка */
+        header {
+            background-color: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: var(--primary-color);
+        }
+
+        nav a {
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* Общие стили секций */
+        section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            font-weight: 300;
+        }
+
+        /* О мастере */
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .about-img {
+            flex: 0 0 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+        }
+
+        .about-text h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        /* Цены */
+        .price-list {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px dashed var(--primary-color);
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-name {
+            font-weight: bold;
+        }
+
+        /* Контакты */
+        .contacts-container {
+            text-align: center;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .contacts-info {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .contacts-info p {
+            margin: 10px 0;
+        }
+
+        /* Кнопка записи */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .mobile-fixed-btn {
+            display: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            nav {
+                display: none; /* Скрываем меню на мобильных для простоты, можно добавить бургер */
+            }
+
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .about-img {
+                flex: 0 0 200px;
+                height: 200px;
+            }
+
+            .mobile-fixed-btn {
+                display: block;
+                position: fixed;
+                bottom: 20px;
+                left: 5%;
+                width: 90%;
+                text-align: center;
+                z-index: 9999;
+                box-shadow: 0 4px 15px rgba(230, 200, 200, 0.6);
+            }
+            
+            .desktop-btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>Welcome to Our Nail Studio</h1>
+        <div class="logo">Нежный Блик</div>
         <nav>
-            <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <a href="#about" class="scroll-link">О мастере</a>
+            <a href="#portfolio" class="scroll-link">Работы</a>
+            <a href="#prices" class="scroll-link">Цены</a>
+            <a href="#contacts" class="scroll-link">Контакты</a>
         </nav>
     </header>
+
     <section id="about">
-        <h2>About Us</h2>
-        <p>We are a premier nail studio offering a variety of services and styles.</p>
-    </section>
-    <section id="services">
-        <h2>Services</h2>
-        <ul>
-            <li>Manicure</li>
-            <li>Pedicure</li>
-            <li>Nail Art</li>
-            <li>Gel Nails</li>
-        </ul>
-    </section>
-    <section id="portfolio">
-        <h2>Our Portfolio</h2>
-        <div class="gallery">
-            <img src="image1.jpg" alt="Nail Design 1">
-            <img src="image2.jpg" alt="Nail Design 2">
-            <img src="image3.jpg" alt="Nail Design 3">
-            <img src="image4.jpg" alt="Nail Design 4">
+        <div class="about-container">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Фото мастера" class="about-img">
+            <div class="about-text">
+                <h3>Привет! Я Анна</h3>
+                <p>Я сертифицированный мастер ногтевого сервиса с опытом работы более 4 лет. Моя главная страсть — создавать идеальные блики, тонкое, но прочное покрытие и эстетичные дизайны. Я забочусь не только о красоте, но и о здоровье ваших ногтей: все инструменты проходят строгую трехэтапную стерилизацию по нормам СанПиН. Буду рада видеть вас в числе своих клиентов и подчеркнуть вашу индивидуальность!</p>
+            </div>
         </div>
     </section>
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: info@nailstudio.com</p>
+
+    <section id="portfolio">
+        <h2>Мои работы</h2>
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80" alt="Маникюр 1" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=500&q=80" alt="Маникюр 2" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80" alt="Маникюр 3" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1595868688406-8b21ba1cb624?auto=format&fit=crop&w=500&q=80" alt="Маникюр 4" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1632832962383-77cc6778f683?auto=format&fit=crop&w=500&q=80" alt="Маникюр 5" class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1610403167191-447a16f5c531?auto=format&fit=crop&w=500&q=80" alt="Маникюр 6" class="gallery-item">
+        </div>
     </section>
-    <footer>
-        <p>&copy; 2026 Nail Studio</p>
-    </footer>
+
+    <section id="prices">
+        <h2>Услуги и цены</h2>
+        <div class="price-list">
+            <div class="price-item">
+                <span class="price-name">Аппаратный маникюр без покрытия</span>
+                <span class="price-value">800 ₽</span>
+            </div>
+            <div class="price-item">
+                <span class="price-name">Маникюр + выравнивание + гель-лак</span>
+                <span class="price-value">1 500 ₽</span>
+            </div>
+            <div class="price-item">
+                <span class="price-name">Укрепление гелем / полигелем</span>
+                <span class="price-value">1 800 ₽</span>
+            </div>
+            <div class="price-item">
+                <span class="price-name">Наращивание ногтей (до 3 длины)</span>
+                <span class="price-value">2 500 ₽</span>
+            </div>
+            <div class="price-item">
+                <span class="price-name">Дизайн (френч, втирка, стемпинг)</span>
+                <span class="price-value">от 100 ₽ / ноготь</span>
+            </div>
+            <div class="price-item">
+                <span class="price-name">Снятие чужого покрытия</span>
+                <span class="price-value">200 ₽</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacts">
+        <h2>Контакты</h2>
+        <div class="contacts-container">
+            <div class="contacts-info">
+                <p>📍 <strong>Адрес:</strong> с. Стерлибашево, ул. Ленина, д. 15</p>
+                <p>📞 <strong>Телефон:</strong> +7 (999) 123-45-67</p>
+                <p>✈️ <strong>Telegram:</strong> @NailMasterAnna</p>
+                <p>📸 <strong>Instagram:</strong> @anna_nails_art</p>
+            </div>
+            <a href="https://wa.me/79991234567" target="_blank" class="btn desktop-btn">Записаться онлайн</a>
+        </div>
+    </section>
+
+    <a href="https://wa.me/79991234567" target="_blank" class="btn mobile-fixed-btn">Записаться</a>
+
+    <script>
+        // Плавная прокрутка для якорных ссылок меню
+        document.querySelectorAll('.scroll-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                // Учитываем высоту прилипающей шапки (примерно 60px)
+                const headerOffset = 70;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+                window.scrollTo({
+                     top: offsetPosition,
+                     behavior: "smooth"
+                });
+            });
+        });
+    </script>
 </body>
 </html>
