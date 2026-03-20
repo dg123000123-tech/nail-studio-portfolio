@@ -18,12 +18,12 @@
         }
 
         :root {
-            --primary-color: #d19fb0;
-            --primary-dark: #bd8699;
-            --bg-color: #faf8f8;
-            --text-color: #5c5c5c;
-            --text-light: #8c8c8c;
-            --accent-bg: #ffffff;
+            --primary-color: #d19fb0; /* Пудровый розовый */
+            --primary-dark: #bd8699; /* Темно-пудровый */
+            --bg-color: #faf8f8; /* Теплый белый для фона сайта */
+            --text-color: #5c5c5c; /* Мягкий серый для текста */
+            --text-light: #8c8c8c; /* Светло-серый для второстепенного текста */
+            --accent-bg: #ffffff; /* Чистый белый для блоков и меню */
             --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -95,6 +95,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: padding 0.3s;
         }
 
         .logo {
@@ -103,7 +104,7 @@
             letter-spacing: 3px;
             color: var(--primary-color);
             font-family: 'Playfair Display', serif;
-            z-index: 1003;
+            z-index: 1003; /* Поверх бокового меню */
         }
 
         /* Навигация (десктоп) */
@@ -131,7 +132,7 @@
             cursor: pointer;
             flex-direction: column;
             gap: 6px;
-            z-index: 1003;
+            z-index: 1003; /* Поверх бокового меню */
         }
 
         .menu-toggle span {
@@ -154,8 +155,8 @@
             justify-content: center;
             text-align: center;
             padding: 0 7%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(247,234,237,0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            /* Убрано фоновое изображение, теперь чистый белый */
+            background-color: #ffffff;
             color: var(--text-color);
         }
 
@@ -188,17 +189,17 @@
         .about-img {
             flex: 1;
             border-radius: 30px;
-            overflow: hidden;
+            /* overflow: hidden; */ /* Не нужен без img */
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            height: 500px;
+            
+            /* Стили для пустого белого поля */
+            background-color: #ffffff;
+            aspect-ratio: 1 / 1; /* Сохраняет квадратную форму */
+            max-height: 500px; /* Ограничивает максимальный размер */
+            border: 1px solid #f0e6e9; /* Добавлена тонкая граница */
         }
 
-        .about-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        /* Убраны стили для тега img внутри .about-img */
 
         .about-text {
             flex: 1.2;
@@ -275,18 +276,19 @@
             overflow: hidden;
             height: 350px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-            background-color: #f0e6e9;
-        }
 
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            /* Стили для пустого белого поля */
+            background-color: #ffffff;
+            border: 1px solid #f0e6e9;
             transition: var(--transition-smooth);
         }
 
-        .portfolio-item:hover img {
-            transform: scale(1.08);
+        /* Убраны стили для тега img внутри .portfolio-item */
+        
+        /* Добавлена анимация для самого блока при наведении */
+        .portfolio-item:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            border-color: var(--primary-color);
         }
 
         /* Цены */
@@ -392,6 +394,10 @@
             font-size: 1.1rem;
         }
 
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
         .social-links {
             margin-bottom: 3rem;
             display: flex;
@@ -422,6 +428,7 @@
 
             .menu-toggle { display: flex; }
             
+            /* Подложка для затемнения сайта при открытом меню */
             .menu-overlay {
                 position: fixed;
                 top: 0;
@@ -435,6 +442,7 @@
                 transition: opacity 0.3s ease;
             }
 
+            /* Боковое меню */
             nav {
                 position: fixed;
                 top: 0;
@@ -455,6 +463,7 @@
             nav ul { flex-direction: column; text-align: left; gap: 2.5rem; }
             nav a { font-size: 1.2rem; }
 
+            /* Действия при открытом меню */
             #menu-checkbox:checked ~ nav { left: 0; }
             #menu-checkbox:checked ~ .menu-overlay { opacity: 1; visibility: visible; }
             #menu-checkbox:checked ~ .menu-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -508,9 +517,7 @@
     </div>
 
     <section id="about" class="about">
-        <div class="about-img" data-aos="fade-right">
-            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800&auto=format&fit=crop" alt="Рабочее пространство мастера">
-        </div>
+        <div class="about-img" data-aos="fade-right"></div>
         <div class="about-text" data-aos="fade-left">
             <h2 class="section-title">Обо мне</h2>
             <p>Меня зовут [Ваше Имя], и я сертифицированный мастер маникюра с опытом работы более 5 лет.</p>
@@ -540,24 +547,12 @@
     <section id="portfolio" class="portfolio">
         <h2 class="section-title" data-aos="fade-up">Портфолио</h2>
         <div class="portfolio-grid">
-            <div class="portfolio-item" data-aos="zoom-in">
-                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=600&auto=format&fit=crop" alt="Маникюр 1">
-            </div>
-            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=600&auto=format&fit=crop" alt="Маникюр 2">
-            </div>
-            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1632832822153-380d923ed34e?q=80&w=600&auto=format&fit=crop" alt="Маникюр 3">
-            </div>
-            <div class="portfolio-item" data-aos="zoom-in">
-                <img src="https://images.unsplash.com/photo-1632832822299-19ff29ea15d1?q=80&w=600&auto=format&fit=crop" alt="Маникюр 4">
-            </div>
-            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1627063428135-c32244434237?q=80&w=600&auto=format&fit=crop" alt="Маникюр 5">
-            </div>
-            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1507914372368-b2b085b925a1?q=80&w=600&auto=format&fit=crop" alt="Маникюр 6">
-            </div>
+            <div class="portfolio-item" data-aos="zoom-in"></div>
+            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100"></div>
+            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200"></div>
+            <div class="portfolio-item" data-aos="zoom-in"></div>
+            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100"></div>
+            <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200"></div>
         </div>
     </section>
 
@@ -615,6 +610,7 @@
             offset: 100
         });
 
+        // Скрипт для закрытия мобильного меню после клика по ссылке
         const menuCheckbox = document.getElementById('menu-checkbox');
         const navLinks = document.querySelectorAll('nav a');
 
