@@ -18,10 +18,10 @@
         }
 
         :root {
-            --primary-color: #d19fb0; /* Пудровый розовый */
-            --primary-dark: #bd8699; /* Темно-пудровый */
-            --bg-color: #faf8f8; /* Теплый белый */
-            --text-color: #5c5c5c; /* Мягкий серый */
+            --primary-color: #d19fb0;
+            --primary-dark: #bd8699;
+            --bg-color: #faf8f8;
+            --text-color: #5c5c5c;
             --text-light: #8c8c8c;
             --accent-bg: #ffffff;
             --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,7 +95,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            transition: padding 0.3s;
         }
 
         .logo {
@@ -104,6 +103,7 @@
             letter-spacing: 3px;
             color: var(--primary-color);
             font-family: 'Playfair Display', serif;
+            z-index: 1003;
         }
 
         /* Навигация (десктоп) */
@@ -125,12 +125,13 @@
             color: var(--primary-color);
         }
 
-        /* Мобильное меню (гамбургер) - на чистом CSS */
+        /* Мобильное меню (гамбургер) */
         .menu-toggle {
             display: none;
             cursor: pointer;
             flex-direction: column;
             gap: 6px;
+            z-index: 1003;
         }
 
         .menu-toggle span {
@@ -153,8 +154,8 @@
             justify-content: center;
             text-align: center;
             padding: 0 7%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(247,234,237,0.7) 100%), 
-                        url('image_0.png') no-repeat center center/cover;
+            background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(247,234,237,0.8) 100%), 
+                        url('[attachment_0](attachment)') no-repeat center center/cover;
             color: var(--text-color);
         }
 
@@ -193,7 +194,8 @@
 
         .about-img img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
@@ -388,10 +390,6 @@
             font-size: 1.1rem;
         }
 
-        .contact-info p {
-            margin-bottom: 0.5rem;
-        }
-
         .social-links {
             margin-bottom: 3rem;
             display: flex;
@@ -406,7 +404,11 @@
             color: var(--primary-color);
         }
 
-        /* Адаптивность для мобильных устройств */
+        /* =========================================
+           АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ 
+           ========================================= */
+        .menu-overlay { display: none; }
+
         @media (max-width: 1024px) {
             .hero h1 { font-size: 3.2rem; }
             .about { gap: 3rem; }
@@ -416,27 +418,46 @@
             header { padding: 1rem 5%; }
             .logo { font-size: 1.5rem; }
 
-            /* Адаптивное меню «гамбургер» на CSS */
-            .menu-toggle { display: flex; z-index: 1001; }
+            .menu-toggle { display: flex; }
             
-            nav {
-                position: absolute;
+            /* Подложка для затемнения сайта */
+            .menu-overlay {
+                position: fixed;
                 top: 0;
-                left: -100%;
+                left: 0;
                 width: 100%;
                 height: 100vh;
-                background-color: rgba(255,255,255,0.98);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition-smooth);
-                box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1001;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease;
             }
 
-            nav ul { flex-direction: column; text-align: center; gap: 2rem; }
+            /* Боковое меню */
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                max-width: 320px;
+                height: 100vh;
+                background-color: #ffffff;
+                display: flex;
+                align-items: flex-start;
+                padding-top: 6rem;
+                padding-left: 2rem;
+                transition: var(--transition-smooth);
+                box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+                z-index: 1002;
+            }
+
+            nav ul { flex-direction: column; text-align: left; gap: 2.5rem; }
             nav a { font-size: 1.2rem; }
 
+            /* Действия при открытом меню */
             #menu-checkbox:checked ~ nav { left: 0; }
+            #menu-checkbox:checked ~ .menu-overlay { opacity: 1; visibility: visible; }
             #menu-checkbox:checked ~ .menu-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
             #menu-checkbox:checked ~ .menu-toggle span:nth-child(2) { opacity: 0; }
             #menu-checkbox:checked ~ .menu-toggle span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
@@ -466,6 +487,8 @@
             <span></span>
         </label>
         
+        <label for="menu-checkbox" class="menu-overlay"></label>
+        
         <nav>
             <ul>
                 <li><a href="#hero" class="active">Главная</a></li>
@@ -487,12 +510,12 @@
 
     <section id="about" class="about">
         <div class="about-img" data-aos="fade-right">
-            <img src="image_4.png" alt="Рабочее пространство мастера">
+            <img src="[attachment_1](attachment)" alt="Рабочее пространство мастера">
         </div>
         <div class="about-text" data-aos="fade-left">
             <h2 class="section-title">Обо мне</h2>
             <p>Меня зовут [Ваше Имя], и я сертифицированный мастер маникюра с опытом работы более 5 лет.</p>
-            <p>Моя философия — это здоровье и эстетика ваших рук. Я специализируюсь на нежных, нюдовых покрытиях, идеальном френче и минималистичных дизайнах. Использую только высококачественные материалы и уделяю особое внимание безопасности.</p>
+            <p>Моя философия — это здоровье и эстетика ваших рук. Я специализируюсь на нежных, нюдовых покрытиях, идеальном френче и минималистичных дизайнах.</p>
             <p>Я создам для вас атмосферу уюта и заботы, чтобы каждый визит приносил удовольствие.</p>
         </div>
     </section>
@@ -519,22 +542,22 @@
         <h2 class="section-title" data-aos="fade-up">Портфолио</h2>
         <div class="portfolio-grid">
             <div class="portfolio-item" data-aos="zoom-in">
-                <img src="image_1.png" alt="Маникюр с пионом">
+                <img src="[attachment_2](attachment)" alt="Маникюр 1">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="image_2.png" alt="Стильный френч с геометрией">
+                <img src="[attachment_3](attachment)" alt="Маникюр 2">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="image_3.png" alt="Нежное омбре на мраморе">
+                <img src="[attachment_4](attachment)" alt="Маникюр 3">
             </div>
             <div class="portfolio-item" data-aos="zoom-in">
-                <img src="image_1.png" alt="Минималистичный нюд">
+                <img src="[attachment_5](attachment)" alt="Маникюр 4">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="image_2.png" alt="Эстетика">
+                <img src="[attachment_0](attachment)" alt="Маникюр 5">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="image_3.png" alt="Нежный градиент">
+                <img src="[attachment_1](attachment)" alt="Маникюр 6">
             </div>
         </div>
     </section>
@@ -543,7 +566,7 @@
         <h2 class="section-title" data-aos="fade-up">Прайс-лист</h2>
         <div class="price-list" data-aos="fade-up">
             <div class="price-item">
-                <span class="price-name">Маникюр без покрытия (аппаратный/комби)</span>
+                <span class="price-name">Маникюр без покрытия</span>
                 <span class="price-value">1 500 ₽</span>
             </div>
             <div class="price-item">
@@ -551,20 +574,8 @@
                 <span class="price-value">2 500 ₽</span>
             </div>
             <div class="price-item">
-                <span class="price-name">Маникюр + Укрепление + Покрытие</span>
-                <span class="price-value">3 000 ₽</span>
-            </div>
-            <div class="price-item">
                 <span class="price-name">Дизайн (1 ноготь)</span>
                 <span class="price-value">от 100 ₽</span>
-            </div>
-            <div class="price-item">
-                <span class="price-name">Френч / Градиент (все ногти)</span>
-                <span class="price-value">+ 500 ₽</span>
-            </div>
-            <div class="price-item">
-                <span class="price-name">Снятие (моя работа)</span>
-                <span class="price-value">Бесплатно</span>
             </div>
         </div>
     </section>
@@ -573,22 +584,18 @@
         <h2 class="section-title" data-aos="fade-up">Отзывы клиентов</h2>
         <div class="reviews-grid">
             <div class="review-card" data-aos="fade-right">
-                <p class="review-text">Лучший маникюр, который я когда-либо делала! Очень нежно, аккуратно и держится долго. Ваше чувство стиля восхищает.</p>
+                <p class="review-text">Лучший маникюр, который я когда-либо делала! Очень нежно и аккуратно.</p>
                 <p class="review-author">— Елена</p>
             </div>
-            <div class="review-card" data-aos="fade-up">
-                <p class="review-text">Я в восторге от френча! [Ваше Имя] воплотила все мои идеи. Атмосфера в студии просто чудесная.</p>
-                <p class="review-author">— Ольга</p>
-            </div>
             <div class="review-card" data-aos="fade-left">
-                <p class="review-text">Прекрасный мастер. Очень бережно относится к ногтям. Покрытие тонкое и идеальное. Теперь только сюда!</p>
-                <p class="review-author">— Ксения</p>
+                <p class="review-text">Я в восторге от френча! Атмосфера в студии просто чудесная.</p>
+                <p class="review-author">— Ольга</p>
             </div>
         </div>
     </section>
 
     <footer id="contacts">
-        <h2 class="section-title" style="font-size: 2.2rem; position: relative; display: inline-block; margin-bottom: 2rem;">Свяжитесь со мной</h2>
+        <h2 class="section-title" style="font-size: 2.2rem; display: inline-block; margin-bottom: 2rem;">Свяжитесь со мной</h2>
         <p class="contact-info">
             WhatsApp / Telegram: +7 (999) 000-00-00<br>
             Принимаю по адресу: г. Москва, ул. Красивая, д. 10
@@ -598,17 +605,15 @@
             <a href="#">Telegram</a>
             <a href="#">VKontakte</a>
         </div>
-        <p style="font-size: 0.9rem; margin-top: 3rem;">&copy; 2026 Nails Beauty. Все права защищены.<br>Разработано для вашего портфолио.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Инициализация анимаций
         AOS.init({
-            duration: 800, // Длительность анимации
-            easing: 'ease-in-out', // Тип сглаживания
-            once: true, // Анимация запускается только один раз при прокрутке
-            offset: 100 // Отступ от края экрана перед запуском
+            duration: 800, 
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
         });
 
         // Скрипт для закрытия мобильного меню после клика по ссылке
@@ -624,4 +629,6 @@
         });
     </script>
 
-<
+</body>
+</html>
+
