@@ -155,7 +155,7 @@
             text-align: center;
             padding: 0 7%;
             background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(247,234,237,0.8) 100%), 
-                        url('[attachment_0](attachment)') no-repeat center center/cover;
+                        url('https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
             color: var(--text-color);
         }
 
@@ -190,6 +190,7 @@
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            height: 500px;
         }
 
         .about-img img {
@@ -274,6 +275,7 @@
             overflow: hidden;
             height: 350px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            background-color: #f0e6e9;
         }
 
         .portfolio-item img {
@@ -420,7 +422,6 @@
 
             .menu-toggle { display: flex; }
             
-            /* Подложка для затемнения сайта */
             .menu-overlay {
                 position: fixed;
                 top: 0;
@@ -434,7 +435,6 @@
                 transition: opacity 0.3s ease;
             }
 
-            /* Боковое меню */
             nav {
                 position: fixed;
                 top: 0;
@@ -455,7 +455,6 @@
             nav ul { flex-direction: column; text-align: left; gap: 2.5rem; }
             nav a { font-size: 1.2rem; }
 
-            /* Действия при открытом меню */
             #menu-checkbox:checked ~ nav { left: 0; }
             #menu-checkbox:checked ~ .menu-overlay { opacity: 1; visibility: visible; }
             #menu-checkbox:checked ~ .menu-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
@@ -510,7 +509,7 @@
 
     <section id="about" class="about">
         <div class="about-img" data-aos="fade-right">
-            <img src="[attachment_1](attachment)" alt="Рабочее пространство мастера">
+            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=800&auto=format&fit=crop" alt="Рабочее пространство мастера">
         </div>
         <div class="about-text" data-aos="fade-left">
             <h2 class="section-title">Обо мне</h2>
@@ -542,22 +541,22 @@
         <h2 class="section-title" data-aos="fade-up">Портфолио</h2>
         <div class="portfolio-grid">
             <div class="portfolio-item" data-aos="zoom-in">
-                <img src="[attachment_2](attachment)" alt="Маникюр 1">
+                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?q=80&w=600&auto=format&fit=crop" alt="Маникюр 1">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="[attachment_3](attachment)" alt="Маникюр 2">
+                <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=600&auto=format&fit=crop" alt="Маникюр 2">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="[attachment_4](attachment)" alt="Маникюр 3">
+                <img src="https://images.unsplash.com/photo-1632832822153-380d923ed34e?q=80&w=600&auto=format&fit=crop" alt="Маникюр 3">
             </div>
             <div class="portfolio-item" data-aos="zoom-in">
-                <img src="[attachment_5](attachment)" alt="Маникюр 4">
+                <img src="https://images.unsplash.com/photo-1632832822299-19ff29ea15d1?q=80&w=600&auto=format&fit=crop" alt="Маникюр 4">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="100">
-                <img src="[attachment_0](attachment)" alt="Маникюр 5">
+                <img src="https://images.unsplash.com/photo-1627063428135-c32244434237?q=80&w=600&auto=format&fit=crop" alt="Маникюр 5">
             </div>
             <div class="portfolio-item" data-aos="zoom-in" data-aos-delay="200">
-                <img src="[attachment_1](attachment)" alt="Маникюр 6">
+                <img src="https://images.unsplash.com/photo-1507914372368-b2b085b925a1?q=80&w=600&auto=format&fit=crop" alt="Маникюр 6">
             </div>
         </div>
     </section>
@@ -616,7 +615,6 @@
             offset: 100
         });
 
-        // Скрипт для закрытия мобильного меню после клика по ссылке
         const menuCheckbox = document.getElementById('menu-checkbox');
         const navLinks = document.querySelectorAll('nav a');
 
@@ -631,4 +629,3 @@
 
 </body>
 </html>
-
