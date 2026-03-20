@@ -5,94 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Студия Маникюра | Нежный Блик</title>
     <style>
+        /* Базовые переменные для пастельной палитры */
         :root {
-            --bg-color: #fdf6f5; /* Очень светлый бежево-розовый */
-            --primary-color: #e6c8c8; /* Пыльная роза */
-            --primary-hover: #d4aeae;
-            --text-color: #4a4040; /* Мягкий темно-коричневый */
-            --white: #ffffff;
+            --bg-main: #fcf9f9;
+            --bg-secondary: #ffffff;
+            --primary: #e8b4b8; /* Нежный розовый */
+            --primary-dark: #d6989d;
+            --text-dark: #4a4040;
+            --text-light: #7a6c6c;
+            --shadow: 0 8px 30px rgba(232, 180, 184, 0.15);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        /* Сброс стилей и базовые настройки */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-color);
+            font-family: 'Helvetica Neue', sans-serif;
+            color: var(--text-dark);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-main);
             line-height: 1.6;
-            padding-bottom: 80px; /* Отступ для мобильной кнопки */
+            overflow-x: hidden;
+            padding-bottom: 90px; /* Для фиксированной мобильной кнопки */
         }
 
-        /* Шапка */
+        /* Анимации появления (JS добавляет класс .visible) */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Шапка и навигация */
         header {
-            background-color: var(--white);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.03);
             padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
         .logo {
             font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: var(--primary-color);
-        }
-
-        nav a {
+            font-weight: 700;
+            color: var(--primary-dark);
             text-decoration: none;
-            margin-left: 20px;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
             font-size: 16px;
-            transition: color 0.3s;
+            font-weight: 500;
+            position: relative;
         }
 
-        nav a:hover {
-            color: var(--primary-hover);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
         }
 
-        /* Общие стили секций */
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Бургер-меню для мобильных */
+        .burger {
+            display: none;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-dark);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* Секции */
         section {
-            padding: 60px 5%;
+            padding: 100px 5% 50px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 40px;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 300;
+            margin-bottom: 50px;
+            color: var(--primary-dark);
         }
 
         /* О мастере */
-        .about-container {
+        .about-wrapper {
             display: flex;
+            gap: 50px;
             align-items: center;
-            gap: 40px;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            background: var(--bg-secondary);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
         }
 
         .about-img {
-            flex: 0 0 300px;
-            height: 300px;
+            flex: 0 0 350px;
+            height: 350px;
             object-fit: cover;
             border-radius: 50%;
-            border: 5px solid var(--primary-color);
+            border: 8px solid var(--bg-main);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .about-text h3 {
-            font-size: 24px;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            font-size: 16px;
             margin-bottom: 15px;
         }
 
@@ -100,35 +163,42 @@
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .gallery-item {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            height: 350px;
         }
 
-        .gallery-item:hover {
-            transform: scale(1.02);
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
         }
 
         /* Цены */
         .price-list {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
         }
 
         .price-item {
             display: flex;
             justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px dashed var(--primary-color);
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(232, 180, 184, 0.3);
         }
 
         .price-item:last-child {
@@ -136,64 +206,102 @@
         }
 
         .price-name {
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-dark);
         }
 
         /* Контакты */
-        .contacts-container {
+        .contacts-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 15px;
+            background: var(--bg-secondary);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
         }
 
-        .contacts-info {
-            margin-bottom: 30px;
+        .contact-info {
             font-size: 18px;
+            margin-bottom: 40px;
+            color: var(--text-light);
         }
 
-        .contacts-info p {
-            margin: 10px 0;
+        .contact-info p {
+            margin: 15px 0;
         }
 
-        /* Кнопка записи */
+        /* Кнопки */
         .btn {
             display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 15px 35px;
-            border-radius: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
-            transition: background 0.3s;
             border: none;
             cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(232, 180, 184, 0.4);
         }
 
         .btn:hover {
-            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(232, 180, 184, 0.6);
+            color: white;
         }
 
         .mobile-fixed-btn {
             display: none;
         }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            nav {
-                display: none; /* Скрываем меню на мобильных для простоты, можно добавить бургер */
-            }
-
-            .about-container {
+        /* Адаптив (Планшеты и телефоны) */
+        @media (max-width: 900px) {
+            .about-wrapper {
                 flex-direction: column;
                 text-align: center;
-                padding: 20px;
+                padding: 30px 20px;
             }
 
             .about-img {
-                flex: 0 0 200px;
-                height: 200px;
+                flex: 0 0 250px;
+                height: 250px;
+            }
+
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 60px;
+                flex-direction: column;
+                background: var(--bg-secondary);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 15px;
+                font-size: 20px;
+            }
+
+            .burger {
+                display: block;
             }
 
             .mobile-fixed-btn {
@@ -203,8 +311,8 @@
                 left: 5%;
                 width: 90%;
                 text-align: center;
-                z-index: 9999;
-                box-shadow: 0 4px 15px rgba(230, 200, 200, 0.6);
+                z-index: 999;
+                font-size: 20px;
             }
             
             .desktop-btn {
@@ -216,50 +324,57 @@
 <body>
 
     <header>
-        <div class="logo">Нежный Блик</div>
-        <nav>
-            <a href="#about" class="scroll-link">О мастере</a>
-            <a href="#portfolio" class="scroll-link">Работы</a>
-            <a href="#prices" class="scroll-link">Цены</a>
-            <a href="#contacts" class="scroll-link">Контакты</a>
-        </nav>
+        <a href="#" class="logo">Нежный Блик</a>
+        <div class="nav-links" id="nav-links">
+            <a href="#about">О мастере</a>
+            <a href="#portfolio">Работы</a>
+            <a href="#prices">Цены</a>
+            <a href="#contacts">Контакты</a>
+        </div>
+        <button class="burger" id="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </button>
     </header>
 
-    <section id="about">
-        <div class="about-container">
-            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Фото мастера" class="about-img">
+    <section id="about" class="fade-in">
+        <div class="about-wrapper">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Анна - мастер маникюра" class="about-img">
             <div class="about-text">
                 <h3>Привет! Я Анна</h3>
-                <p>Я сертифицированный мастер ногтевого сервиса с опытом работы более 4 лет. Моя главная страсть — создавать идеальные блики, тонкое, но прочное покрытие и эстетичные дизайны. Я забочусь не только о красоте, но и о здоровье ваших ногтей: все инструменты проходят строгую трехэтапную стерилизацию по нормам СанПиН. Буду рада видеть вас в числе своих клиентов и подчеркнуть вашу индивидуальность!</p>
+                <p>Я сертифицированный мастер ногтевого сервиса с опытом более 4 лет. Создаю тонкое, прочное покрытие и идеальные блики, которые носятся без сколов.</p>
+                <p>Мой приоритет — безопасность. Все инструменты проходят строгую 3-этапную стерилизацию по СанПиН (крафт-пакет вскрывается при вас). Работаю только на премиальных материалах в уютной студии.</p>
+                <p>Пастельные тона, френч, минимализм или сложный арт — реализуем любую задумку!</p>
             </div>
         </div>
     </section>
 
-    <section id="portfolio">
+    <section id="portfolio" class="fade-in">
         <h2>Мои работы</h2>
         <div class="gallery-grid">
-            <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=500&q=80" alt="Маникюр 1" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=500&q=80" alt="Маникюр 2" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80" alt="Маникюр 3" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1595868688406-8b21ba1cb624?auto=format&fit=crop&w=500&q=80" alt="Маникюр 4" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1632832962383-77cc6778f683?auto=format&fit=crop&w=500&q=80" alt="Маникюр 5" class="gallery-item">
-            <img src="https://images.unsplash.com/photo-1610403167191-447a16f5c531?auto=format&fit=crop&w=500&q=80" alt="Маникюр 6" class="gallery-item">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="Маникюр 1"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?auto=format&fit=crop&w=600&q=80" alt="Маникюр 2"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=600&q=80" alt="Маникюр 3"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595868688406-8b21ba1cb624?auto=format&fit=crop&w=600&q=80" alt="Маникюр 4"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1632832962383-77cc6778f683?auto=format&fit=crop&w=600&q=80" alt="Маникюр 5"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1610403167191-447a16f5c531?auto=format&fit=crop&w=600&q=80" alt="Маникюр 6"></div>
         </div>
     </section>
 
-    <section id="prices">
+    <section id="prices" class="fade-in">
         <h2>Услуги и цены</h2>
         <div class="price-list">
             <div class="price-item">
-                <span class="price-name">Аппаратный маникюр без покрытия</span>
+                <span class="price-name">Комбинированный маникюр (без покрытия)</span>
                 <span class="price-value">800 ₽</span>
             </div>
             <div class="price-item">
-                <span class="price-name">Маникюр + выравнивание + гель-лак</span>
+                <span class="price-name">Маникюр + покрытие гель-лак (однотон)</span>
                 <span class="price-value">1 500 ₽</span>
             </div>
             <div class="price-item">
-                <span class="price-name">Укрепление гелем / полигелем</span>
+                <span class="price-name">Сложная коррекция / Укрепление гелем</span>
                 <span class="price-value">1 800 ₽</span>
             </div>
             <div class="price-item">
@@ -268,7 +383,7 @@
             </div>
             <div class="price-item">
                 <span class="price-name">Дизайн (френч, втирка, стемпинг)</span>
-                <span class="price-value">от 100 ₽ / ноготь</span>
+                <span class="price-value">от 100 ₽ / шт</span>
             </div>
             <div class="price-item">
                 <span class="price-name">Снятие чужого покрытия</span>
@@ -277,11 +392,11 @@
         </div>
     </section>
 
-    <section id="contacts">
-        <h2>Контакты</h2>
-        <div class="contacts-container">
-            <div class="contacts-info">
-                <p>📍 <strong>Адрес:</strong> с. Стерлибашево, ул. Ленина, д. 15</p>
+    <section id="contacts" class="fade-in">
+        <h2>Жду вас в гости</h2>
+        <div class="contacts-wrapper">
+            <div class="contact-info">
+                <p>📍 <strong>Адрес:</strong> с. Стерлибашево, ул. Ленина, д. 15, каб. 3</p>
                 <p>📞 <strong>Телефон:</strong> +7 (999) 123-45-67</p>
                 <p>✈️ <strong>Telegram:</strong> @NailMasterAnna</p>
                 <p>📸 <strong>Instagram:</strong> @anna_nails_art</p>
@@ -293,23 +408,40 @@
     <a href="https://wa.me/79991234567" target="_blank" class="btn mobile-fixed-btn">Записаться</a>
 
     <script>
-        // Плавная прокрутка для якорных ссылок меню
-        document.querySelectorAll('.scroll-link').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                // Учитываем высоту прилипающей шапки (примерно 60px)
-                const headerOffset = 70;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-                window.scrollTo({
-                     top: offsetPosition,
-                     behavior: "smooth"
-                });
+        // 1. Мобильное меню (бургер)
+        const burger = document.getElementById('burger');
+        const navLinks = document.getElementById('nav-links');
+        const links = document.querySelectorAll('.nav-links a');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Анимация крестика
+            burger.classList.toggle('toggle');
+        });
+
+        // Закрытие меню при клике на ссылку
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
             });
+        });
+
+        // 2. Плавная анимация появления элементов при скролле (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.15 // Элемент появляется, когда видно 15% его высоты
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Анимируем только один раз
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>
